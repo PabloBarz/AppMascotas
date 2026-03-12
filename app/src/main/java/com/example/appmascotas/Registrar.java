@@ -61,6 +61,7 @@ public class Registrar extends AppCompatActivity {
         loadUI();
 
         btnRegistrarMascota.setOnClickListener(v -> {validarMascota();});
+
     }
 
 
@@ -171,8 +172,9 @@ public class Registrar extends AppCompatActivity {
 
                         try {
                             String mensaje = jsonObject.getString("message");
+                            String id = jsonObject.getString("id");
                             Log.d("Resultado", jsonObject.toString());
-                            Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),mensaje + " con ID: " + id,Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
