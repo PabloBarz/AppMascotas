@@ -37,7 +37,7 @@ public class Listar extends AppCompatActivity {
 
     private JSONArray jsonMascotasArray;
 
-    private final String URL = "http://192.168.101.26:3000/mascotas";
+    private final String URL = "http://192.168.18.177:3000/mascotas";
     private void loadUI(){
         lsvMascotas = findViewById(R.id.lsvMascotas);
     }
@@ -68,7 +68,7 @@ public class Listar extends AppCompatActivity {
                 double peso = mascotaSeleccionada.getPesokg();
 
                 // Crear el AlertDialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(Listar.this); // Cambié a Listar.this, ya que es el contexto adecuado.
+                AlertDialog.Builder builder = new AlertDialog.Builder(Listar.this);
                 builder.setTitle("Mascota: " + nombre);
                 builder.setMessage("ID de la mascota: " + idMascota + "\nTipo de la mascota: " + tipo + "\nColor de la mascota: " + color + "\nPeso: " + peso + " kg");
 
