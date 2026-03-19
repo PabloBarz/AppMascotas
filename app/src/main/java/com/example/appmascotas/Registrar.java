@@ -37,7 +37,7 @@ public class Registrar extends AppCompatActivity {
 
     //Enviar / Recibir
     RequestQueue requestQueue;
-    private final String URL = "http://192.168.18.177:3000/mascotas";
+    private final String URL = "http://192.168.101.26:3000/mascotas";
 
 
     private void loadUI() {
