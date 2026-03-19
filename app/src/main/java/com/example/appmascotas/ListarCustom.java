@@ -1,5 +1,6 @@
 package com.example.appmascotas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -48,7 +49,7 @@ public class ListarCustom extends AppCompatActivity implements  MascotaAdapter.O
         setContentView(R.layout.activity_listar_custom);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            //v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
@@ -59,6 +60,12 @@ public class ListarCustom extends AppCompatActivity implements  MascotaAdapter.O
         recyclerMascota.setLayoutManager(new LinearLayoutManager(this));
         recyclerMascota.setAdapter(adapter);
 
+        obtenerDatos();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         obtenerDatos();
     }
 
@@ -113,7 +120,9 @@ public class ListarCustom extends AppCompatActivity implements  MascotaAdapter.O
 
     @Override
     public void onEditar(int position, Mascotas mascotas) {
-
+        Intent intent = new Intent(getApplicationContext(), ActualizarMascota.class);
+        intent.putExtra("ID", mascotas.getId());
+        startActivity(intent);
     }
 
     @Override
