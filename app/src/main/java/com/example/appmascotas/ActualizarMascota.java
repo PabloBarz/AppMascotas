@@ -27,7 +27,7 @@ public class ActualizarMascota extends AppCompatActivity {
     private int mascotaId;
 
     // URL base para la API
-    private final String URL_BASE = "http://192.168.101.41:3000/mascotas/";
+    private final String URL_BASE = "http://192.168.18.177:3000/mascotas/";
     private RequestQueue requestQueue;
 
     private void loadUI(){

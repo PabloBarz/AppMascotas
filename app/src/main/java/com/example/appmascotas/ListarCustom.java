@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -36,7 +38,7 @@ public class ListarCustom extends AppCompatActivity implements  MascotaAdapter.O
 
     RequestQueue queue;
 
-    private final String URL = "http://192.168.101.41:3000/mascotas";
+    private final String URL = "http://192.168.18.177:3000/mascotas";
 
     private void loadUI(){
         recyclerMascota = findViewById(R.id.rcwMascotas);
@@ -127,6 +129,48 @@ public class ListarCustom extends AppCompatActivity implements  MascotaAdapter.O
 
     @Override
     public void onEliminar(int position, Mascotas mascotas) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmar eliminación");
+        builder.setMessage("¿Deseas eliminar a " + mascotas.getNombre() + "?");
+        builder.setPositiveButton("Sí", (dialog, which) -> {
+            eliminarMascota(position, mascotas);
+        });
 
+        builder.setNegativeButton("No", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void eliminarMascota(int position, Mascotas mascota) {
+        String url = URL + "/" + mascota.getId();
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null,
+                response -> {
+                    try {
+                        if (response.getBoolean("success")) {
+                            Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
+
+
+                            adapter.eliminarItem(position);
+
+                        } else {
+                            Toast.makeText(this, "No se pudo eliminar", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Log.e("JSON_ERROR", e.toString());
+                        Toast.makeText(this, "Error procesando respuesta", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show();
+                    Log.e("VOLLEY_ERROR", error.toString());
+                }
+        );
+
+        queue.add(request);
     }
 }
