@@ -11,6 +11,6 @@
     
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>git
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
